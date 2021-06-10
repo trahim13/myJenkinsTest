@@ -6,16 +6,14 @@ pipeline {
     PATH = "$mavenHome/bin:PATH"
    }
    stages{
+        stage ('Clean'){
+            steps{
+                sh "mvn clean"
+            }
+        }
         stage ('Build'){
             steps{
-                echo("Build")
-                echo "PATH - $PATH"
-                echo "BUILD NUMBER - $env.BUILD_NUMBER"
-                echo "BUILD ID - $env.BUILD_ID"
-                echo "JOB NAME - $env.JOB_NAME"
-                echo "BUILD URL - $env.BUILD_URL"
-                echo "env - $env"
-                sh "mvn --version"
+                sh  "mvn compile"
             }
         }
         stage ('Test'){
@@ -23,11 +21,12 @@ pipeline {
                 echo("Test")
             }
         }
-        stage ('Test Integration'){
-            steps{
-                echo("Test Integration")
-            }
-        }
+
+         stage ('Integration Test'){
+              steps{
+                 echo("Integration Test")
+              }
+          }
 
    }
 
